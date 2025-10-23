@@ -8,11 +8,14 @@ namespace ProjectManagementAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
 
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<TaskItem> Tasks { get; set; }
+        public DbSet<Project> Projects { get; set; } = null!;
+        public DbSet<TaskItem> Tasks { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!; // add this
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Project>()
                         .HasMany(p => p.Tasks)
                         .WithOne(t => t.Project)
